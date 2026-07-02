@@ -1,26 +1,816 @@
 @import "tailwindcss";
 
+/* ========================================
+   THEOLOGICAL READING EXPERIENCE
+   Global Design System
+   ======================================== */
+
+/* --- Custom Theme Tokens --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base Colors */
+  --parchment: #FAF9F5;
+  --parchment-dark: #F0EDE5;
+  --charcoal: #1A1A1A;
+  --charcoal-light: #2D2D2D;
+  --text-secondary: #4A4A4A;
+
+  /* Accent Colors */
+  --burgundy: #722F37;
+  --burgundy-light: #8B3A42;
+  --burgundy-dark: #5A252C;
+  --midnight: #003366;
+  --midnight-light: #004C99;
+  --gold: #D4AF37;
+  --gold-muted: #B8963A;
+  --gold-light: #E8C94A;
+  --gold-faint: rgba(212, 175, 55, 0.08);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.06);
+  --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.08);
+  --shadow-lg: 0 8px 32px rgba(26, 26, 26, 0.12);
+
+  /* Typography */
+  --font-heading: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Lora', 'Georgia', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout */
+  --sidebar-width: 280px;
+  --header-height: 72px;
+
+  /* Dynamic Settings */
+  --base-font-size: 18px;
 }
+
+/* --- Dark Mode (Đêm Tối Tâm Hồn) --- */
+.dark {
+  --parchment: #0f172a; 
+  --parchment-dark: #1e293b;
+  --charcoal: #f8fafc;
+  --charcoal-light: #e2e8f0;
+  --text-secondary: #cbd5e1;
+
+  --burgundy: #f43f5e;
+  --burgundy-light: #fb7185;
+  --burgundy-dark: #be123c;
+  --midnight: #38bdf8;
+  --midnight-light: #7dd3fc;
+  --gold: #fcd34d;
+  --gold-muted: #fbbf24;
+  --gold-light: #fde68a;
+  --gold-faint: rgba(252, 211, 77, 0.1);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Typography Controls --- */
+html {
+  font-size: var(--base-font-size);
+  transition: font-size 0.3s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+html.text-size-sm { --base-font-size: 16px; }
+html.text-size-md { --base-font-size: 18px; }
+html.text-size-lg { --base-font-size: 21px; }
+
+html.font-family-serif { --font-body: 'Lora', 'Georgia', serif; }
+html.font-family-sans { --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-parchment: var(--parchment);
+  --color-parchment-dark: var(--parchment-dark);
+  --color-charcoal: var(--charcoal);
+  --color-burgundy: var(--burgundy);
+  --color-midnight: var(--midnight);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-gold-faint: var(--gold-faint);
+  --color-text-secondary: var(--text-secondary);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ========================================
+   BASE STYLES
+   ======================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--parchment);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   STAINED GLASS BACKGROUND PATTERN
+   Very low opacity geometric pattern
+   ======================================== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.025;
+  background-image:
+    radial-gradient(circle at 20% 20%, var(--burgundy) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, var(--midnight) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, var(--gold) 1px, transparent 1px),
+    linear-gradient(30deg, transparent 40%, rgba(212, 175, 55, 0.03) 40%, rgba(212, 175, 55, 0.03) 60%, transparent 60%),
+    linear-gradient(-30deg, transparent 40%, rgba(114, 47, 55, 0.03) 40%, rgba(114, 47, 55, 0.03) 60%, transparent 60%);
+  background-size:
+    60px 60px,
+    60px 60px,
+    80px 80px,
+    120px 120px,
+    120px 120px;
+}
+
+/* ========================================
+   SELECTION STYLING
+   ======================================== */
+::selection {
+  background-color: rgba(212, 175, 55, 0.25);
+  color: var(--charcoal);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, var(--parchment) 0%, rgba(250, 249, 245, 0.97) 100%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+.header-divider {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--gold) 20%,
+    var(--gold) 50%,
+    var(--gold) 80%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+/* ========================================
+   CROSS MOTIF SVG
+   ======================================== */
+.cross-motif {
+  color: var(--gold-muted);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.cross-motif:hover {
+  opacity: 1;
+}
+
+/* ========================================
+   NAVIGATION / TABLE OF CONTENTS
+   ======================================== */
+.toc-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 32px);
+  max-height: calc(100vh - var(--header-height) - 64px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(212, 175, 55, 0.3);
+  border-radius: 2px;
+}
+
+.toc-link {
+  display: block;
+  padding: 6px 16px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.toc-link:hover {
+  color: var(--burgundy);
+  border-left-color: rgba(212, 175, 55, 0.4);
+  background-color: var(--gold-faint);
+}
+
+.toc-link.active {
+  color: var(--burgundy);
+  border-left-color: var(--gold);
+  font-weight: 600;
+  background-color: var(--gold-faint);
+}
+
+.toc-link.sub {
+  padding-left: 32px;
+  font-size: 12px;
+}
+
+/* ========================================
+   ARTICLE CONTENT – MARKDOWN STYLING
+   ======================================== */
+
+/* --- Drop Cap --- */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-heading);
+  font-size: 4.2em;
+  line-height: 0.8;
+  padding-right: 12px;
+  padding-top: 6px;
+  color: var(--burgundy);
+  font-weight: 700;
+}
+
+/* --- Headings --- */
+.article-content h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.2;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.article-content h2 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.3;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.article-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--charcoal-light);
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Paragraphs --- */
+.article-content p {
+  margin-bottom: 1.5em;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* --- Links --- */
+.article-content a {
+  color: var(--midnight);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 51, 102, 0.3);
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+.article-content a:hover {
+  color: var(--burgundy);
+  text-decoration-color: var(--burgundy);
+}
+
+/* --- Blockquotes (Scripture / Saint Quotes) --- */
+.article-content blockquote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  background: linear-gradient(135deg,
+    rgba(114, 47, 55, 0.04) 0%,
+    rgba(212, 175, 55, 0.03) 100%
+  );
+  border-left: 4px solid var(--burgundy);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--charcoal-light);
+}
+
+.article-content blockquote::before {
+  content: '\201C';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  color: rgba(212, 175, 55, 0.2);
+  line-height: 1;
+}
+
+.article-content blockquote p {
+  margin-bottom: 0.5em;
+}
+
+.article-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Tables --- */
+.article-content table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9em;
+  box-shadow: var(--shadow-sm);
+}
+
+.article-content thead {
+  background: linear-gradient(135deg,
+    rgba(114, 47, 55, 0.08) 0%,
+    rgba(0, 51, 102, 0.06) 100%
+  );
+}
+
+.article-content th {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--burgundy);
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.article-content td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.article-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.article-content tbody tr:hover {
+  background-color: var(--gold-faint);
+}
+
+/* --- Lists --- */
+.article-content ul {
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.article-content ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-content ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold-muted);
+  font-size: 0.7em;
+  top: 0.4em;
+}
+
+.article-content ol {
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 1.5rem;
+  counter-reset: custom-counter;
+  list-style: none;
+}
+
+.article-content ol li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  counter-increment: custom-counter;
+}
+
+.article-content ol li::before {
+  content: counter(custom-counter) '.';
+  position: absolute;
+  left: -1rem;
+  color: var(--burgundy);
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+/* --- Horizontal Rule / Golden Divider --- */
+.article-content hr {
+  border: none;
+  height: 1px;
+  margin: 3rem auto;
+  max-width: 200px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--gold) 30%,
+    var(--gold) 70%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+/* --- Emphasis --- */
+.article-content strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.article-content em {
+  font-style: italic;
+  color: var(--charcoal-light);
+}
+
+/* --- Code --- */
+.article-content code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  background-color: rgba(212, 175, 55, 0.08);
+  border-radius: 4px;
+  color: var(--burgundy);
+}
+
+/* --- Superscript (footnote references) --- */
+.article-content sup.footnote-ref {
+  font-size: 0.75em;
+  color: var(--burgundy);
+  font-weight: 700;
+  padding: 0 3px;
+  margin-left: 1px;
+  background-color: rgba(212, 175, 55, 0.15);
+  border-radius: 3px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  vertical-align: super;
+}
+
+/* ========================================
+   GOLDEN DIVIDER COMPONENT
+   ======================================== */
+.golden-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 2rem 0;
+}
+
+.golden-divider::before,
+.golden-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(212, 175, 55, 0.4),
+    transparent
+  );
+}
+
+.golden-divider-icon {
+  color: var(--gold-muted);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.site-footer {
+  background: linear-gradient(180deg,
+    var(--parchment) 0%,
+    var(--parchment-dark) 100%
+  );
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* ========================================
+   FOOTNOTES / REFERENCES SECTION
+   ======================================== */
+.references-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.references-section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--burgundy);
+  margin-bottom: 1.5rem;
+}
+
+.reference-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.reference-item a {
+  color: var(--midnight);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.reference-item a:hover {
+  color: var(--burgundy);
+  text-decoration: underline;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* ========================================
+   READING PROGRESS BAR
+   ======================================== */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--burgundy), var(--gold), var(--midnight));
+  z-index: 100;
+  transition: width 0.1s ease-out;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .toc-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .article-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .drop-cap::first-letter {
+    font-size: 3.2em;
+  }
+}
+
+/* ========================================
+   MOBILE TOC
+   ======================================== */
+.mobile-toc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-toc-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-toc-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  max-width: 85vw;
+  background: var(--parchment);
+  z-index: 70;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.mobile-toc-panel.open {
+  transform: translateX(0);
+}
+
+/* ========================================
+   BACK TO TOP BUTTON
+   ======================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--parchment);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--gold-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 40;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background: var(--gold-faint);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  .site-header,
+  .toc-sidebar,
+  .back-to-top,
+  .reading-progress,
+  .site-footer {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    font-size: 12pt;
+  }
+}
+
+/* ========================================
+   PRINT STYLES (Xuất PDF / In ấn)
+   ======================================== */
+@media print {
+  /* Hide UI elements */
+  nav, footer, .sidebar, .reading-progress, .back-to-top, .settings-panel, button {
+    display: none !important;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+    color: black !important;
+  }
+
+  h2 {
+    margin-top: 2em;
+  }
+
+  p, blockquote {
+    page-break-inside: avoid;
+  }
+
+  blockquote {
+    border-left: 3px solid #333 !important;
+    background: none !important;
+    padding: 0 0 0 1em !important;
+    font-style: italic;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+
+  .golden-divider {
+    display: none !important;
+  }
+
+  @page {
+    margin: 2cm;
+  }
 }
