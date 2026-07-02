@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[7121,[],""]
+3:I[4581,[],""]
+:HL["/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/bdc40ff41323b918.css","style"]
+:HL["/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/e8ddfe43ee8a593d.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/bdc40ff41323b918.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/e8ddfe43ee8a593d.css","precedence":"next"}]],["$","html",null,{"lang":"vi","className":"__variable_ee6317 __variable_932fe6 __variable_8d9184 h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col","children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dilMoZovRmz91Cl1lbzVb"}

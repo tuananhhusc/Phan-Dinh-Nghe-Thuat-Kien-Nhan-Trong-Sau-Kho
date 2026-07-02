@@ -1,0 +1,3 @@
+:HL["/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/bdc40ff41323b918.css","style"]
+:HL["/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho/_next/static/css/e8ddfe43ee8a593d.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"dilMoZovRmz91Cl1lbzVb"}
