@@ -7,8 +7,11 @@ const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV === "development",
 });
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: "export",
+  basePath: isProd ? "/Phan-Dinh-Nghe-Thuat-Kien-Nhan-Trong-Sau-Kho" : "",
   images: {
     unoptimized: true,
   },
